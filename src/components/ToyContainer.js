@@ -10,6 +10,17 @@ function ToyContainer( { data, setData } ) {
     setData(updatedItems)
   }
 
+  function handleUpdateItem(updatedItem) {
+    const updatedItems = data.map((item) => {
+      if (item.id === updatedItem.id) {
+      return updatedItem;
+    } else {
+      return item
+    }
+  })
+  setData(updatedItems)
+}
+
   return (
     <div id="toy-collection">
       { 
@@ -17,6 +28,7 @@ function ToyContainer( { data, setData } ) {
         <ToyCard 
           data={item}
           key={item.id}
+          onUpdatedItem={handleUpdateItem}
           onDeleteItem={handleDeleteItem}
         />
         
