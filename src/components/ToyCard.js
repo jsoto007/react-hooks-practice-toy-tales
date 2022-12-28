@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 
-function ToyCard( { data } ) {
+function ToyCard( { data, onDeleteItem } ) {
   
-  
+  function handleDeleteClick() {
+    fetch(`http://localhost:3001/toys/${data.id}`, {
+      method: "DELETE",
+    })
+    .then((resp) => resp.json())
+    .then(() => onDeleteItem(data))
+  }
+
   return (
     <div className="card">
       <h2>{data.name}</h2>
@@ -13,7 +20,7 @@ function ToyCard( { data } ) {
       />
       <p>{data.likes} Likes </p>
       <button className="like-btn">Like {"<3"}</button>
-      <button className="del-btn">Donate to GoodWill</button>
+      <button onClick={handleDeleteClick} className="del-btn">Donate to GoodWill</button>
     </div>
   );
 }

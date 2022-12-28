@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ToyCard from "./ToyCard";
 
-function ToyContainer() {
-  const [data, setData] = useState([])
-  useEffect(() => {
-    fetch("http://localhost:3001/toys")
-      .then((resp) => resp.json())
-      .then((items) => setData(items))
-  }, [])
 
-  console.log(data)
+function ToyContainer( { data, setData } ) {
+
+
+  function handleDeleteItem(deletedItem) {
+    const updatedItems = data.filter((item) => item.id !== deletedItem.id)
+    setData(updatedItems)
+  }
+
   return (
     <div id="toy-collection">
       { 
@@ -17,6 +17,7 @@ function ToyContainer() {
         <ToyCard 
           data={item}
           key={item.id}
+          onDeleteItem={handleDeleteItem}
         />
         
         )
